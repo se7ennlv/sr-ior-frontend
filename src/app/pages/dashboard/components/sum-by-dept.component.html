@@ -1,0 +1,21 @@
+<div class="card">
+    <h4>Summary by Departments</h4>
+
+    <ul class="widget-image-list">
+        <li>
+            <span>Department</span>
+            <span>Sub Total</span>
+        </li>
+
+        <ng-template ngFor let-item [ngForOf]="items" let-i="index">
+            <li>
+                <span>{{item?.name}}</span>
+                <span class="listitem-value">{{item?.value | number}}</span>
+            </li>
+        </ng-template>
+        <li>
+            <span></span>
+            <span class="listitem-value">Grand Total: {{total | number}}</span>
+        </li>
+    </ul>
+</div>

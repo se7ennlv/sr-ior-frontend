@@ -1,0 +1,127 @@
+<div class="layout-dashboard">
+    <div class="p-grid p-pt-0">
+        <div class="p-col-12 p-pb-0 p-text-center">
+            <p-badge [value]="zone" class="p-badge p-badge-xl" size="xlarge" severity="success"
+                (click)="appService.onRightMenuClick($event)"></p-badge>
+            <h3 class="p-py-0 p-mt-2">{{heading}}</h3>
+        </div>
+        <div class="p-col-12 p-pt-0">
+            <form [formGroup]="ioForm" autocomplete="off">
+                <div class="p-inputgroup">
+                    <!-- <span class="p-inputgroup-addon p-px-3" mbsc-numpad-decimal [mbsc-options]="numpadSettings"
+						style="cursor: pointer;">
+						<i class="pi pi-id-card pi-lg"></i>
+					</span>
+					<input #inputBox formControlName="emp_id" type="text" pInputText class="p-inputtext-lg"
+						[(ngModel)]="numpad" placeholder="Employee ID"
+						(keyup.enter)="getValueEntered($event.target.value)" /> -->
+
+                    <input #inputBox formControlName="emp_id" type="text" pInputText class="p-inputtext-lg"
+                        placeholder="Employee ID" (keyup.enter)="dataEntry($event.target.value)" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-col-7">
+            <div class="card p-pt-2">
+                <p-divider layout="horizontal" align="center">
+                    <h4 class="p-m-0">EMPLOYEE INFO</h4>
+                </p-divider>
+                <div class="p-grid p-mt-3">
+                    <div class="p-col-4 p-pb-0" style="text-align: center">
+                        <img *ngIf="!photoSrc" src="assets/images/notfound.png" class="user-card-avatar"
+                            alt="diamond-layout" style="width: 155px; height: 189px;" />
+                        <img *ngIf="photoSrc" [src]="photoSrc" class="user-card-avatar" alt="diamond-layout"
+                            style="width: 155px; height: 189px;" />
+                    </div>
+                    <div class="p-col-8 p-pb-0 p-pl-6">
+                        <h5 class="p-mt-0">
+                            <strong class="p-mr-2">ID:</strong>
+                            <small>{{emp?.emp_id}} </small>
+                        </h5>
+                        <h5 class="p-my-3">
+                            <strong class="p-mr-2">Name:</strong>
+                            <small *ngIf="emp">{{emp?.fname}}
+                                {{emp?.lname}}</small>
+                        </h5>
+                        <h5 class="p-my-3">
+                            <strong class="p-mr-2">Dept:</strong>
+                            <small *ngIf="emp">{{emp?.dept_name}}</small>
+                        </h5>
+                        <h5 class="p-my-3">
+                            <strong class="p-mr-2">Number Plate:</strong>
+                            <small *ngIf="emp">{{emp?.number_plate}}</small>
+                        </h5>
+                        <h5 class="p-my-3">
+                            <strong class="p-mr-2">Time-{{zone}}:</strong>
+                            <small *ngIf="emp">{{atTime}}</small>
+                        </h5>
+                        <h5 class="p-mt-3 p-mb-0"><strong class="p-mr-2">Reason:</strong><small
+                                *ngIf="reason">{{reason}}</small></h5>
+                    </div>
+                </div>
+                <p-divider></p-divider>
+                <div class="p-fluid">
+                    <button *ngIf="submitted" pButton pRipple type="button" label="SUBMIT"
+                        class="p-button-raised p-button-info p-button-lg p-text-bold" (click)="createDoc()"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-col-5">
+            <div class="card p-pt-2">
+                <p-divider layout="horizontal" align="center">
+                    <h4 class="p-m-0">REASONS</h4>
+                </p-divider>
+
+                <div class="p-grid">
+                    <div class="p-col p-fluid p-pr-0">
+                        <div class="reason-widget food" (click)="selectReason('Food/Etc')">
+                            <h4 class="p-my-2">Food/Etc</h4>
+                            <h4 class="p-my-2">ອາຫານ/ອື່ນໆ</h4>
+                        </div>
+                    </div>
+                    <div class="p-col p-fluid">
+                        <div class="reason-widget home" (click)="selectReason('Home')">
+                            <h4 class="p-my-2">Home</h4>
+                            <h4 class="p-my-2">ເຮືອນ</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col p-fluid p-pr-0">
+                        <div class="reason-widget bank" (click)="selectReason('Bank')">
+                            <h4 class="p-my-2">Bank</h4>
+                            <h4 class="p-my-2">ທະນາຄານ</h4>
+                        </div>
+                    </div>
+                    <div class="p-col p-fluid">
+                        <div class="reason-widget hospital" (click)="selectReason('Hospital')">
+                            <h4 class="p-my-2">Hospital</h4>
+                            <h4 class="p-my-2">ໂຮງໝໍ</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col p-fluid">
+                        <div class="reason-widget other" (click)="selectReason('Other')">
+                            <h4 class="p-my-2">Other / ອື່ນໆ</h4>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<p-toast></p-toast>
+
+<p-dialog header="Alert" [(visible)]="displayModal" [style]="{width: '35vw'}">
+    <p>Please complete the zone setup</p>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayModal=false" label="OK" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

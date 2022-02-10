@@ -2,11 +2,10 @@ import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { AppMainComponent } from './app.main.component';
-import { AppConfigComponent } from './app.config.component';
-import { AppTopBarComponent } from './app.topbar.component';
-import { AppFooterComponent } from './app.footer.component';
-import { AppMenuComponent } from './app.menu.component';
+import { AppConfigComponent } from './core/config/app.config.component';
+import { MenuLeftComponent } from './core/components/menu-left.component';
+import { FooterComponent } from './core/components/footer.component';
+import { TopBarComponent } from './core/components/topbar.component';
 
 describe('AppComponent', () => {
     beforeEach(async(() => {
@@ -14,11 +13,10 @@ describe('AppComponent', () => {
             imports: [NoopAnimationsModule, RouterTestingModule],
             declarations: [
                 AppComponent,
-                AppMainComponent,
+                MenuLeftComponent,
                 AppConfigComponent,
-                AppTopBarComponent,
-                AppMenuComponent,
-                AppFooterComponent,
+                TopBarComponent,
+                FooterComponent,
             ]
         }).compileComponents();
     }));

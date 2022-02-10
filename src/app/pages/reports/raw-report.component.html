@@ -1,0 +1,153 @@
+<div class="p-grid table-demo">
+    <div class="p-col-12">
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4 toolbar">
+                <ng-template pTemplate="left">
+                    <div class="p-mb-1">
+                        <label for="range" class="p-mr-2">Time Range:</label>
+                        <p-calendar [inputStyle]="{'width':'275px'}" inputId="range" [(ngModel)]="dateRange"
+                            selectionMode="range" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true"
+                            [yearRange]="yearRange" showTime="true">
+                        </p-calendar>
+                        <button pButton pRipple type="button" class="p-button-secondary p-button-sm p-ml-1"
+                            label="Refresh" icon="pi pi-search" (click)="search()"></button>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="p-fluid">
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Search" />
+                        </span>
+                    </div>
+                    <div class="p-fluid">
+                        <button pButton pRipple label="Export" icon="pi pi-download"
+                            class="p-button-success p-button-sm p-ml-2" (click)="dt.exportCSV()">
+                        </button>
+                    </div>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="items" [columns]="cols" dataKey="id" selectionMode="single"
+                styleClass="p-datatable-striped p-datatable-sm" [rowHover]="true" [paginator]="true" [rows]="25"
+                [rowsPerPageOptions]="[10,25,50]" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" scrollHeight="500px"
+                responsiveLayout="scroll"
+                [globalFilterFields]="['emp_id','employee.fname','employee.lname','employee.dept_name', 'reason']"
+                [filterDelay]="0" [loading]="loading" exportFilename="ior_raw_data">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="p-text-center p-text-nowrap p-text-truncate">#</th>
+                        <th class="p-text-center p-text-nowrap p-text-truncate">Photo</th>
+                        <th class="p-text-center p-text-nowrap p-text-truncate" pSortableColumn="emp_id">ID
+                            <p-sortIcon field="employee.emp_id"></p-sortIcon>
+                        </th>
+                        <th class="p-text-nowrap p-text-truncate" pSortableColumn="employee.fname">Name
+                            <p-sortIcon field="employee.fname"></p-sortIcon>
+                        </th>
+                        <th class="p-text-nowrap p-text-truncate" pSortableColumn="employee.lname">Last Name
+                            <p-sortIcon field="employee.lname"></p-sortIcon>
+                        </th>
+                        <th class="p-text-nowrap p-text-truncate" pSortableColumn="employee.dept_name">Department
+                            <p-sortIcon field="employee.dept_name"></p-sortIcon>
+                        </th>
+                        <th class="p-text-center p-text-nowrap p-text-truncate" pSortableColumn="number_plate">Number
+                            Plate
+                            <p-sortIcon field="number_plate"></p-sortIcon>
+                        </th>
+                        <th class="p-text-nowrap p-text-truncate" pSortableColumn="reason">Reason
+                            <p-sortIcon field="reason"></p-sortIcon>
+                        </th>
+                        <th class="p-text-center p-text-nowrap p-text-truncate" pSortableColumn="record_date">
+                            Record Date
+                            <p-sortIcon field="record_date"></p-sortIcon>
+                        </th>
+                        <th class="p-text-center p-text-nowrap p-text-truncate" pSortableColumn="record_time">Record
+                            Time
+                            <p-sortIcon field="record_time"></p-sortIcon>
+                        </th>
+                        <th class="p-text-center p-text-nowrap p-text-truncate" pSortableColumn="zone">Zone
+                            <p-sortIcon field="zone"></p-sortIcon>
+                        </th>
+                        <th class="p-text-center p-text-nowrap p-text-truncate">Curfew Status</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                    <tr [pSelectableRow]="item">
+                        <td class="p-text-center">
+                            <span class="p-column-title">#</span>
+                            {{rowIndex + 1}}
+                        </td>
+                        <td class="p-text-center" style="justify-content: center; display: flex;">
+                            <ngx-avatar *ngIf="!item?.employee?.photo" size="30" bgColor="#7F8C8D" fgColor="#ffffff"
+                                [name]="item?.employee?.fname">
+                            </ngx-avatar>
+                            <ngx-avatar *ngIf="item?.employee?.photo"
+                                [src]="this.baseUrl + '/images/employees/'+ item?.employee?.photo" size="30">
+                            </ngx-avatar>
+                        </td>
+                        <td class="p-text-center">
+                            <span class="p-column-title">ID</span>
+                            {{item?.emp_id}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">First Name</span>
+                            {{item?.employee?.fname}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Last Name</span>
+                            {{item?.employee?.lname}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Department</span>
+                            {{item?.employee?.dept_name}}
+                        </td>
+                        <td class="p-text-center">
+                            <span class="p-column-title">Number Plate</span>
+                            {{item.number_plate}}
+                        </td>
+                        <td>
+                            <span class="p-column-title">Reason</span>
+                            {{item.reason}}
+                        </td>
+                        <td class="p-text-center p-text-nowrap p-text-truncate">
+                            <span class="p-column-title">Record Date</span>
+                            {{item.record_date}}
+                        </td>
+                        <td class="p-text-center p-text-nowrap p-text-truncate">
+                            <span class="p-column-title">Record Time</span>
+                            {{item.record_time}}
+                        </td>
+                        <td class="p-text-center">
+                            <span class="p-column-title">Zone</span>
+                            <span class="custom-badge status-danger" *ngIf="item.zone == 'IN'; else elseZone">IN</span>
+                        </td>
+                        <td class="p-text-center">
+                            <span class="p-column-title">Curfew Status</span>
+                            <span class="custom-badge status-success"
+                                *ngIf="item.record_time >= item.curfew_from && item.record_time <= item.curfew_to; else elseCurfew">SUCCESS</span>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <ng-template #elseZone>
+                    <span [class]="'custom-badge status-success'">OUT</span>
+                </ng-template>
+
+                <ng-template #elseCurfew>
+                    <span [class]="'custom-badge status-danger'">FAIL</span>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="13" class="p-text-center">No data found.</td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+    </div>
+
+</div>

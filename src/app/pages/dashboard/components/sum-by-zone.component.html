@@ -1,0 +1,15 @@
+<div class="card no-gutter widget-overview-box widget-overview-box-1 p-pb-1">
+    <span class="overview-icon">
+        <i class="pi pi-users"></i>
+    </span>
+
+    <span class="overview-title">TOTAL: ({{total | number}})</span>
+    <div class="p-grid overview-detail p-mb-0">
+        <ng-template ngFor let-item [ngForOf]="items" let-i="index">
+            <div class="p-col-6">
+                <div class="overview-number">({{item?.value | number}})</div>
+                <div class="overview-subtext">{{item?.name}}</div>
+            </div>
+        </ng-template>
+    </div>
+</div>

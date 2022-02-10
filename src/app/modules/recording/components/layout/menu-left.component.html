@@ -1,0 +1,15 @@
+<div class="layout-sidebar" (click)="appService.onMenuClick($event)">
+    <a [routerLink]="['/']" class="logo">
+        <img id="app-logo" class="logo-image" src="assets/images/logo_circle.png" alt="sr-logo"/>
+        <span class="app-name">IOR</span>
+    </a>
+
+    <div class="layout-menu-container">
+        <ul class="layout-menu">
+            <ng-container *ngFor="let item of model; let i = index;">
+                <li app-menuitem *ngIf="!item.separator" [item]="item" [index]="i" [root]="true"></li>
+                <li *ngIf="item.separator" class="menu-separator"></li>
+            </ng-container>
+        </ul>
+    </div>
+</div>

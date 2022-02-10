@@ -1,0 +1,23 @@
+<div class="layout-wrapper" [ngClass]="{
+    'layout-overlay': appService.menuMode === 'overlay',
+    'layout-static': appService.menuMode === 'static',
+    'layout-slim': appService.menuMode === 'slim',
+    'layout-horizontal': appService.menuMode === 'horizontal',
+    'layout-sidebar-dim': appService.colorScheme === 'dim',
+    'layout-sidebar-dark': appService.colorScheme === 'dark',
+    'layout-overlay-active': appService.overlayMenuActive,
+    'layout-mobile-active': appService.staticMenuMobileActive,
+    'layout-static-inactive': appService.staticMenuDesktopInactive && appService.menuMode === 'static',
+    'p-input-filled': appService.inputStyle === 'filled', 'p-ripple-disabled': !appService.ripple}"
+    [class]="appService.colorScheme === 'light' ? appService.menuTheme : ''" [attr.data-theme]="appService.colorScheme"
+    (click)="appService.onLayoutClick()">
+
+    <div class="layout-content-wrapper" style="padding-top: 1rem;">
+        <div class="layout-content" style="padding-top: 0;">
+            <router-outlet></router-outlet>
+        </div>
+        <app-footer></app-footer>
+    </div>
+
+    <app-rightmenu></app-rightmenu>
+</div>

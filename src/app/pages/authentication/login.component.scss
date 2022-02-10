@@ -1,0 +1,31 @@
+.pages-body .pages-panel {
+    text-align: center;
+    z-index: 200;
+  }
+
+  .pages-body.login-page {
+    background: url("/../../assets/images/backgrounds/login-bg.webp");
+    background-size: cover;
+  }
+
+  .pages-body {
+    height: 100vh;
+  }
+
+  .pages-body .pages-panel .pages-header {
+    margin-top: -5rem;
+    justify-content: center;
+    display: flex;
+  }
+
+  .btn-login {
+    border-radius: 0;
+  }
+
+  .card-detail {
+    letter-spacing: 1px;
+  }
+
+  a {
+    cursor: pointer;
+  }

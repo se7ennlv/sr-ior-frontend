@@ -1,0 +1,12 @@
+<div class="layout-sidebar-right" [ngClass]="{'layout-sidebar-right-active': appService.rightMenuActive}" (click)="appService.rightMenuClick = true">
+    <h5 class="p-text-center">Zone Setting</h5>
+
+    <div class="withdraw p-fluid">
+        <div>
+            <p-dropdown [options]="zones" [(ngModel)]="selectedZone" (onChange)="changeZone($event)"></p-dropdown>
+        </div>
+        <div>
+            <button pButton type="button" label="SAVE" (click)="saveZone()"></button>
+        </div>
+    </div>
+</div>

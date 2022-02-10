@@ -1,0 +1,68 @@
+<div class="card">
+    <div class="card-header">
+        <h4>Records List</h4>
+        <p-button label="More Details" styleClass="p-button-link" icon="pi pi-ellipsis-v" (click)="goToRawReport()">
+        </p-button>
+    </div>
+
+
+    <p-table [value]="items" [paginator]="true" [rows]="5" styleClass="p-datatable-customers">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="text-align: center">#</th>
+                <th style="text-align: center">ID</th>
+                <th>Name</th>
+                <th>Dept</th>
+                <th style="text-align: center;">Record Date</th>
+                <th style="text-align: center;">Record Time</th>
+                <th style="text-align: center;">Reason</th>
+                <th style="text-align: center;">Zone</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td style="text-align: center; justify-content: center; display: flex;">
+                    <ngx-avatar *ngIf="!item?.employee?.photo" size="40" bgColor="#7F8C8D" fgColor="#ffffff"
+                        [name]="item?.employee?.fname">
+                    </ngx-avatar>
+                    <ngx-avatar *ngIf="item?.employee?.photo"
+                        [src]="this.baseUrl + '/images/employees/'+ item?.employee?.photo" size="40">
+                    </ngx-avatar>
+                </td>
+                <td style="text-align: center">
+                    <span class="p-column-title">ID</span>
+                    {{item?.emp_id}}
+                </td>
+                <td class="p-text-nowrap p-text-truncate">
+                    <span class="p-column-title">Name</span>
+                    {{item?.employee?.fname}} {{item?.employee?.lname}}
+                </td>
+                <td class="p-text-nowrap p-text-truncate">
+                    <span class="p-column-title">Dept</span>
+                    {{item?.employee?.dept_name}}
+                </td>
+                <td style="text-align: center;">
+                    <span class="p-column-title">Record Date</span>
+                    {{item?.record_date}}
+                </td>
+                <td style="text-align: center;">
+                    <span class="p-column-title">Record Time</span>
+                    {{item?.record_time}}
+                </td>
+                <td class="p-text-center">
+                    <span class="p-column-title">Reason</span>
+                    {{item.reason}}
+                </td>
+                <td style="text-align: center;">
+                    <span class="p-column-title">Zone</span>
+                    <span class="custom-badge status-danger" *ngIf="item.zone == 'IN'; else elseCase">IN</span>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template #elseCase>
+            <span [class]="'custom-badge status-success'">OUT</span>
+        </ng-template>
+
+    </p-table>
+</div>

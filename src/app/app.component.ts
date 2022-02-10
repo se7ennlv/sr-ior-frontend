@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {PrimeNGConfig} from 'primeng/api';
+import { PrimeNGConfig } from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-root',
@@ -7,17 +7,13 @@ import {PrimeNGConfig} from 'primeng/api';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    menuMode = 'static';
+     menuMode = 'static';
+     colorScheme = 'light';
+     menuTheme = 'layout-sidebar-darkgray';
+     inputStyle = 'outlined';
+     ripple: boolean;
 
-    colorScheme = 'light';
-
-    menuTheme = 'layout-sidebar-darkgray';
-
-    inputStyle = 'outlined';
-
-    ripple: boolean;
-
-    constructor(private primengConfig: PrimeNGConfig) {
+     constructor(private primengConfig: PrimeNGConfig) {
     }
 
     ngOnInit() {
